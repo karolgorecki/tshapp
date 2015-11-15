@@ -1,0 +1,2239 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/__tests__/Button-test.js",
+    "memberof": null,
+    "longname": "app/__tests__/Button-test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React from 'react';\nimport expect from 'expect';\n// Use React TestUtils as T\nimport {default as T} from 'react-addons-test-utils';\nimport Button from '../components/Button';\n\ndescribe('Button', ()=> {\n  it('should render without errors', ()=> {\n    let btn = T.renderIntoDocument(\n      <Button>test</Button>\n    );\n\n    expect(btn).toExist();\n  });\n\n  it('should have text \"Foo\"', ()=> {\n    let btn = T.renderIntoDocument(\n      <Button>Foo</Button>\n    );\n    let btnNode = T.findRenderedDOMComponentWithTag(btn, 'a');\n\n    expect(btnNode.textContent).toEqual('Foo');\n  });\n\n  it('should have default class when no type given', ()=> {\n    let btn = T.renderIntoDocument(\n      <Button>Foo</Button>\n    );\n    let btnNode = T.findRenderedDOMComponentWithTag(btn, 'a');\n\n    expect(btnNode.className)\n      .toEqual('components-Button---Button__default components-Button---Button___baseButton');\n  });\n\n  it('should have class \"active\"', ()=> {\n    let btn = T.renderIntoDocument(\n      <Button type=\"action\">Foo</Button>\n    );\n    let btnNode = T.findRenderedDOMComponentWithTag(btn, 'a');\n\n    expect(btnNode.className)\n      .toEqual('components-Button---Button__action components-Button---Button___baseButton');\n  });\n\n  it('should be have href=\"http://example.com\"', ()=> {\n    let btn = T.renderIntoDocument(\n      <Button href=\"http://example.com\">test</Button>\n    );\n    let btnNode = T.findRenderedDOMComponentWithTag(btn, 'a');\n\n    expect(btnNode.getAttribute('href')).toBe('http://example.com');\n  });\n\n  it('should call a method \"foo\" after click', ()=> {\n    let mock = {\n      foo: ()=> {}\n    };\n    let spy = expect.spyOn(mock, 'foo');\n    let btn = T.renderIntoDocument(\n      <Button onClick={mock.foo}>test</Button>\n    );\n    let btnNode = T.findRenderedDOMComponentWithTag(btn, 'a');\n\n    T.Simulate.click(btnNode);\n    expect(spy).toHaveBeenCalled();\n\n    spy.restore();\n    expect.restoreSpies();\n  });\n});\n\n"
+  },
+  {
+    "__docId__": 1,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/__tests__/DataTable-test.js",
+    "memberof": null,
+    "longname": "app/__tests__/DataTable-test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React from 'react';\n// import ReactDOM from 'react-dom';\nimport expect from 'expect';\n// Use React TestUtils as T\nimport {default as T} from 'react-addons-test-utils';\n\nimport DataTable from '../components/DataTable';\n\nconst paymentMock = [{\n  'payment_supplier': 'Foo supplier',\n  'payment_ref': '123',\n  'payment_cost_rating': '5',\n  'payment_amount': '1.49'\n}];\n\ndescribe('DataTable', ()=> {\n  it('should render without errors', ()=> {\n    let dt = T.renderIntoDocument(\n      <DataTable payments={paymentMock}/>\n    );\n\n    expect(dt).toExist();\n  });\n\n  it('should render result rows', ()=> {\n    let dt = T.renderIntoDocument(\n      <DataTable payments={paymentMock}/>\n    );\n    let cols = T.scryRenderedDOMComponentsWithTag(dt, 'td');\n\n    expect(cols[0].textContent).toEqual('Foo supplier');\n    expect(cols[2].textContent).toEqual('123');\n    expect(cols[3].textContent).toEqual('1.49');\n  });\n\n  it('should show a message when no results', ()=> {\n    let dt = T.renderIntoDocument(\n      <DataTable payments={[]}/>\n    );\n    let cols = T.scryRenderedDOMComponentsWithTag(dt, 'td');\n\n    expect(cols[0].textContent).toEqual('No payments found...');\n  });\n});\n"
+  },
+  {
+    "__docId__": 2,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "paymentMock",
+    "memberof": "app/__tests__/DataTable-test.js",
+    "longname": "app/__tests__/DataTable-test.js~paymentMock",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/__tests__/DataTable-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 3,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/__tests__/Header-test.js",
+    "memberof": null,
+    "longname": "app/__tests__/Header-test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React from 'react';\nimport expect from 'expect';\n// Use React TestUtils as T\nimport {default as T} from 'react-addons-test-utils';\nimport Header from '../components/Header';\n\ndescribe('Header', ()=> {\n  it('should render without errors', ()=> {\n    let hdr = T.renderIntoDocument(\n      <Header/>\n    );\n\n    expect(hdr).toExist();\n  });\n\n  it('should have a title and lead text', ()=> {\n    let hdr = T.renderIntoDocument(\n      <Header/>\n    );\n    let title = T.findRenderedDOMComponentWithTag(hdr, 'h1');\n    let lead = T.findRenderedDOMComponentWithTag(hdr, 'p');\n\n    expect(title.textContent).toEqual('Where your money goes');\n    expect(lead.textContent)\n      .toEqual('Payments made by Chichester District Council ' +\n      'to individual suppliers with a value over £500 made within October.');\n  });\n});\n"
+  },
+  {
+    "__docId__": 4,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/__tests__/Pagination-test.js",
+    "memberof": null,
+    "longname": "app/__tests__/Pagination-test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport expect from 'expect';\n// Use React TestUtils as T\nimport {default as T} from 'react-addons-test-utils';\nimport Pagination from '../components/Pagination';\n\nconst pagesMock = {\n  'total': 50,\n  'current': 0,\n  'links': {\n    '0': 'page=0',\n    '1': 'page=1',\n    '2': 'page=2',\n    '3': 'page=3',\n    '4': 'page=4',\n    '5': 'page=5',\n    '6': 'page=6',\n    '7': 'page=7',\n    '8': 'page=8',\n    '49': 'page=49'\n  },\n  'from': 0,\n  'to': 9,\n  'left': false,\n  'right': true,\n  'leftEnd': false,\n  'rightEnd': true\n};\n\ndescribe('Pagination', ()=> {\n  it('should render without errors', ()=> {\n    let pgn = T.renderIntoDocument(\n      <Pagination pages={{}}/>\n    );\n\n    expect(pgn).toExist();\n  });\n\n  it('should create a pagination with one disabled item and rest enabled items', ()=> {\n    let pgn = T.renderIntoDocument(\n      <Pagination pages={pagesMock}/>\n    );\n\n    let pgnItems = ReactDOM.findDOMNode(pgn);\n    let enabledPgnItems = pgnItems.getElementsByTagName('a');\n    \n    expect(enabledPgnItems.length).toEqual(11);\n    // the pagination is 0 based so the last page should be 49 + 1\n    expect(enabledPgnItems[9].textContent).toEqual('50');\n    expect(enabledPgnItems[10].textContent).toEqual('❯');\n    expect(pgnItems.getElementsByTagName('span')[0].textContent).toEqual('❮');\n  });\n});\n"
+  },
+  {
+    "__docId__": 5,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "pagesMock",
+    "memberof": "app/__tests__/Pagination-test.js",
+    "longname": "app/__tests__/Pagination-test.js~pagesMock",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/__tests__/Pagination-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 6,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/__tests__/Rating-test.js",
+    "memberof": null,
+    "longname": "app/__tests__/Rating-test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport expect from 'expect';\n// Use React TestUtils as T\nimport {default as T} from 'react-addons-test-utils';\nimport Rating from '../components/Rating';\n\ndescribe('Rating', ()=> {\n  it('should render without errors', ()=> {\n    let rtg = T.renderIntoDocument(\n      <Rating value=\"1\" max=\"5\"/>\n    );\n\n    expect(rtg).toExist();\n  });\n\n  it('should create rating items', ()=> {\n    let rtg = T.renderIntoDocument(\n      <Rating value=\"2\" max=\"5\"/>\n    );\n\n    let rtgCtn = ReactDOM.findDOMNode(rtg);\n    let rtgItemsOn = rtgCtn\n      .getElementsByClassName('components-Rating---Rating__on ' +\n        'components-Rating---Rating__ratingItem');\n\n    let rtgItemsOff = rtgCtn\n      .getElementsByClassName('components-Rating---Rating__off ' +\n        'components-Rating---Rating__ratingItem');\n\n    expect(rtgItemsOff.length).toEqual(3);\n    expect(rtgItemsOn.length).toEqual(2);\n  });\n});\n"
+  },
+  {
+    "__docId__": 7,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/__tests__/Toolbar-test.js",
+    "memberof": null,
+    "longname": "app/__tests__/Toolbar-test.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport expect from 'expect';\n// Use React TestUtils as T\nimport {default as T} from 'react-addons-test-utils';\nimport Toolbar from '../components/Toolbar';\n\nconst tlbrMock = {\n  rating: '2',\n  query: 'Foo'\n};\n\ndescribe('Toolbar', ()=> {\n  it('should render without errors', ()=> {\n    let tlbr = T.renderIntoDocument(\n      <Toolbar history={{}} filters={{}}/>\n    );\n\n    expect(tlbr).toExist();\n  });\n\n  it('should create items with filled values for pound rating & query input', ()=> {\n    let tlbr = T.renderIntoDocument(\n      <Toolbar history={{}} filters={tlbrMock}/>\n    );\n\n    let tlbrCtn = ReactDOM.findDOMNode(tlbr);\n    let tlbrInput = tlbrCtn.getElementsByTagName('input');\n    let tlbrOptions = tlbrCtn.getElementsByTagName('option');\n    // check if the input is prefilled\n    expect(tlbrInput[0].getAttribute('value')).toEqual('Foo');\n    // check if the select has selected value 2\n    expect(tlbrOptions[2].hasAttribute('selected')).toBe(true);\n  });\n});\n"
+  },
+  {
+    "__docId__": 8,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "tlbrMock",
+    "memberof": "app/__tests__/Toolbar-test.js",
+    "longname": "app/__tests__/Toolbar-test.js~tlbrMock",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/__tests__/Toolbar-test.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 9,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/App/index.js",
+    "memberof": null,
+    "longname": "app/components/App/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './App';\n\n// Get CSS for global, reset and font styles\nimport {} from '../../css/global';\nimport {} from '../../css/reset.css';\nimport {} from '../../css/fonts';\n\n// Get app components\nimport DataTable from '../DataTable';\nimport Toolbar from '../Toolbar';\nimport Header from '../Header';\nimport Pagination from '../Pagination';\n\nconst API_URL = 'http://test-api.kuria.tshdev.io/index.php';\nconst API_ERROR = 'An error occured!';\n\n/**\n * App is the main component that contains other parts of the application.\n */\nexport default class App extends Component {\n  static propTypes = {\n    location: React.PropTypes.object.isRequired,\n    history: React.PropTypes.object.isRequired\n  };\n\n  /**\n   * constructor\n   * @param {Object} props - the parent props\n   * @return {undefined}\n   */\n  constructor(props) {\n    super(props);\n\n    /**\n     * The main App state  \n     * it holds the payments & pagination data from the API\n     * @type {Object}\n     * @property {Object[]} state.payments - is a list of returned payments from the API \n     * @property {Object} state.pagination - contains information about the pagination\n     */\n    this.state = {\n      payments: [],\n      pagination: {}\n    };\n\n    // Watch for route changes\n    this.props.history.listen(::this.changeRoute);\n  }\n\n  /**\n   * Maps the router route to the API calls\n   * @param  {Object} state - holds the route state\n   * @param  {Object} route - holds the route informations\n   * @return {undefined}\n   */\n  changeRoute(state, route) {\n    $.ajax({\n      url: `${API_URL}${route.location.search}`,\n      type: 'get',\n      dataType: 'json',\n      success: ::this.setPayments,\n      error: ::this.handleError\n    });\n  }\n\n  /**\n   * Handles error when getting data from API\n   * @param  {Object} data - returned data\n   * @return {undefined}\n   */\n  handleError(data) {\n    // We don't have any results\n    if (data.responseText === API_ERROR) {\n      this.setState({\n        payments: [],\n        pagination: {}\n      });\n    }\n  }\n\n  /**\n   * Handles the success response when getting data from API  \n   * It sets the state of the payments & pagination\n   * @param {Object} data - the payments & pagination information\n   * @return {undefined}\n   */\n  setPayments(data) {\n    this.setState({\n      payments: data.payments,\n      pagination: data.pagination \n    });\n  }\n\n  /**\n   * Render the App component\n   * @return {ReactComponent} returns whole application with all components\n   */\n  render() {\n    return(\n      <div className={styles.container}>\n        <Header/>\n        <Toolbar history={this.props.history} filters={this.props.location.query}/>\n        <DataTable payments={this.state.payments}/>\n        <Pagination pages={this.state.pagination}/>\n      </div>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 10,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "API_URL",
+    "memberof": "app/components/App/index.js",
+    "longname": "app/components/App/index.js~API_URL",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/components/App/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 11,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "API_ERROR",
+    "memberof": "app/components/App/index.js",
+    "longname": "app/components/App/index.js~API_ERROR",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/components/App/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "type": {
+      "types": [
+        "string"
+      ]
+    }
+  },
+  {
+    "__docId__": 12,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "App",
+    "memberof": "app/components/App/index.js",
+    "longname": "app/components/App/index.js~App",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/App/index.js",
+    "importStyle": "App",
+    "description": "App is the main component that contains other parts of the application.",
+    "lineNumber": 21,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 13,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "app/components/App/index.js~App",
+    "longname": "app/components/App/index.js~App#constructor",
+    "access": null,
+    "description": "constructor",
+    "lineNumber": 32,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "the parent props"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 14,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "state",
+    "memberof": "app/components/App/index.js~App",
+    "longname": "app/components/App/index.js~App#state",
+    "access": null,
+    "description": "The main App state  \nit holds the payments & pagination data from the API",
+    "lineNumber": 42,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "Object[]"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state.payments",
+        "description": "is a list of returned payments from the API"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state.pagination",
+        "description": "contains information about the pagination"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 15,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "changeRoute",
+    "memberof": "app/components/App/index.js~App",
+    "longname": "app/components/App/index.js~App#changeRoute",
+    "access": null,
+    "description": "Maps the router route to the API calls",
+    "lineNumber": 57,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state",
+        "description": "holds the route state"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "route",
+        "description": "holds the route informations"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 16,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "handleError",
+    "memberof": "app/components/App/index.js~App",
+    "longname": "app/components/App/index.js~App#handleError",
+    "access": null,
+    "description": "Handles error when getting data from API",
+    "lineNumber": 72,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "returned data"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 17,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "setPayments",
+    "memberof": "app/components/App/index.js~App",
+    "longname": "app/components/App/index.js~App#setPayments",
+    "access": null,
+    "description": "Handles the success response when getting data from API  \nIt sets the state of the payments & pagination",
+    "lineNumber": 88,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "data",
+        "description": "the payments & pagination information"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 18,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/App/index.js~App",
+    "longname": "app/components/App/index.js~App#render",
+    "access": null,
+    "description": "Render the App component",
+    "lineNumber": 99,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns whole application with all components"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 19,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Button/index.js",
+    "memberof": null,
+    "longname": "app/components/Button/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Button';\n\n/**\n * Component for creating buttons  \n * \n * @example <caption>Simple button</caption>\n * <Button>Foo</Button>\n *\n * @example <caption>Button with different styles & custom href attr</caption>\n * <Button href=\"#custom-path\" type=\"action\">Bar</Button>\n * NOTE:\n * The button type should point to an existing class in Button.css styles  \n * Type \"action\" will point to \".action\" selector\n */\nexport default class Button extends Component {\n  static propTypes = {\n    children: React.PropTypes.node,\n    type: React.PropTypes.string,\n    href: React.PropTypes.string,\n    disabled: React.PropTypes.bool\n  };\n  \n  /**\n   * Render the button to HTML\n   * @return {ReactElement} returns a button node\n   */\n  render() {\n    let {\n      type: buttonType,\n      href: buttonHref\n    } = this.props;\n\n    let buttonClass = buttonType ? styles[buttonType] : styles.default;\n\n    return (\n      <a\n        {...this.props}\n        className={buttonClass}\n        href={buttonHref ? buttonHref : '#'}>\n          {this.props.children}\n      </a>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 20,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Button",
+    "memberof": "app/components/Button/index.js",
+    "longname": "app/components/Button/index.js~Button",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Button/index.js",
+    "importStyle": "Button",
+    "description": "Component for creating buttons  ",
+    "examples": [
+      "<caption>Simple button</caption>\n<Button>Foo</Button>",
+      "<caption>Button with different styles & custom href attr</caption>\n<Button href=\"#custom-path\" type=\"action\">Bar</Button>\nNOTE:\nThe button type should point to an existing class in Button.css styles  \nType \"action\" will point to \".action\" selector"
+    ],
+    "lineNumber": 16,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 21,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Button/index.js~Button",
+    "longname": "app/components/Button/index.js~Button#render",
+    "access": null,
+    "description": "Render the button to HTML",
+    "lineNumber": 28,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactElement"
+      ],
+      "spread": false,
+      "description": "returns a button node"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 22,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/DataTable/Row/index.js",
+    "memberof": null,
+    "longname": "app/components/DataTable/Row/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Modal';\n// Import the modal for showing the content details\nimport Modal from 'react-modal';\n// Import Rating for showing the pound rating\nimport Rating from '../../Rating';\n\nconst modalStyles = {\n  overlay: {\n    position: 'fixed',\n    top: 0,\n    left: 0,\n    right: 0,\n    bottom: 0,\n    backgroundColor: 'rgba(86, 170, 225, 0.8)'\n  },\n  content: {\n    padding: 50,\n    border: '3px solid #56a9e2'\n  }\n};\n\n/**\n * Represents single row in the {@link DataTable} component\n */\nexport default class Row extends Component {\n  static propTypes = {\n    data: React.PropTypes.object.isRequired\n  };\n\n  /**\n   * constructor\n   * @param  {Object} props - the parent props\n   * @return {undefined}\n   */\n  constructor(props) {\n    super(props);\n\n    /**\n     * The single row state holds info about modal\n     * @type {Object}\n     * @property {Object} state.modal - determines if we should show/hide modal\n     */\n    this.state = {\n      modal: false\n    };\n  }\n\n  /**\n   * Handles the open modal action (set state.modal to true)\n   * @return {undefined}\n   */\n  openModal() {\n    this.setState({modal: true});\n  }\n\n  /**\n   * Handles the close modal action (set state.modal to false)\n   * @return {undefined}\n   */\n  closeModal() {\n    this.setState({modal: false});\n  }\n\n  /**\n   * Render the single row for DataTable\n   * @return {ReactComponent} returns single row\n   */\n  render() {\n    let row = this.props.data;\n\n    return (\n      <tr onClick={::this.openModal}>\n        <td>\n          <Modal\n            style={modalStyles}\n            isOpen={this.state.modal}\n            onRequestClose={::this.closeModal}>\n            <span onClick={::this.closeModal} className={styles.close}>\n              &times;\n            </span>\n            <h1 className={styles.title}>{row.payment_supplier}</h1>\n            <hr className={styles.separator}/>\n            <div className={styles.property}>\n              <span className={styles.label}>reference</span>\n              <span className={styles.value}>#{row.payment_ref}</span>\n            </div>\n            <div className={styles.property}>\n              <span className={styles.label}>ammount</span>\n              <span className={styles.value}>&pound;{row.payment_amount}</span>\n            </div>\n            <div className={styles.property}>\n              <span className={styles.label}>cost rating</span>\n              <span className={styles.value}>{row.payment_cost_rating}</span>\n            </div>\n          </Modal>\n          {row.payment_supplier}\n        </td>\n        <td>\n          <Rating value={row.payment_cost_rating} max=\"5\"/>\n        </td>\n        <td>\n          {row.payment_ref}\n        </td>\n        <td>\n          {row.payment_amount}\n        </td>\n      </tr>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 23,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "modalStyles",
+    "memberof": "app/components/DataTable/Row/index.js",
+    "longname": "app/components/DataTable/Row/index.js~modalStyles",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/components/DataTable/Row/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 8,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 24,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Row",
+    "memberof": "app/components/DataTable/Row/index.js",
+    "longname": "app/components/DataTable/Row/index.js~Row",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/DataTable/Row/index.js",
+    "importStyle": "Row",
+    "description": "Represents single row in the {@link DataTable} component",
+    "lineNumber": 26,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 25,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "app/components/DataTable/Row/index.js~Row",
+    "longname": "app/components/DataTable/Row/index.js~Row#constructor",
+    "access": null,
+    "description": "constructor",
+    "lineNumber": 36,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "the parent props"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 26,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "state",
+    "memberof": "app/components/DataTable/Row/index.js~Row",
+    "longname": "app/components/DataTable/Row/index.js~Row#state",
+    "access": null,
+    "description": "The single row state holds info about modal",
+    "lineNumber": 44,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state.modal",
+        "description": "determines if we should show/hide modal"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 27,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "openModal",
+    "memberof": "app/components/DataTable/Row/index.js~Row",
+    "longname": "app/components/DataTable/Row/index.js~Row#openModal",
+    "access": null,
+    "description": "Handles the open modal action (set state.modal to true)",
+    "lineNumber": 53,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 28,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "closeModal",
+    "memberof": "app/components/DataTable/Row/index.js~Row",
+    "longname": "app/components/DataTable/Row/index.js~Row#closeModal",
+    "access": null,
+    "description": "Handles the close modal action (set state.modal to false)",
+    "lineNumber": 61,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 29,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/DataTable/Row/index.js~Row",
+    "longname": "app/components/DataTable/Row/index.js~Row#render",
+    "access": null,
+    "description": "Render the single row for DataTable",
+    "lineNumber": 69,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns single row"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 30,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/DataTable/index.js",
+    "memberof": null,
+    "longname": "app/components/DataTable/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './DataTable';\nimport Row from './Row';\n\n/**\n * DataTable creates table with rows of payments\n */\nexport default class DataTable extends Component {\n  static propTypes = {\n    payments: React.PropTypes.array.isRequired\n  };\n  \n  /**\n   * Returns a data table with payments\n   * @return {ReactComponent} returns DataTable\n   */\n  render() {\n    let rows;\n    if (!this.props.payments.length) {\n      rows = <tr><td className={styles.noResults} colSpan=\"4\">No payments found...</td></tr>;\n    } else {        \n      rows = this.props.payments.map((payment, idx)=>{\n        return <Row key={idx} data={payment}/>;\n      });\n    }\n\n    return (\n      <div>\n        <table className={styles.bordered}>\n          <thead>\n            <tr>\n              <th>Supplier</th>        \n              <th>Pound Rating</th>\n              <th>Reference</th>\n              <th>Value</th>\n            </tr>\n          </thead>\n          <tbody>\n            {rows}      \n          </tbody>\n        </table>\n      </div>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 31,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "DataTable",
+    "memberof": "app/components/DataTable/index.js",
+    "longname": "app/components/DataTable/index.js~DataTable",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/DataTable/index.js",
+    "importStyle": "DataTable",
+    "description": "DataTable creates table with rows of payments",
+    "lineNumber": 8,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 32,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/DataTable/index.js~DataTable",
+    "longname": "app/components/DataTable/index.js~DataTable#render",
+    "access": null,
+    "description": "Returns a data table with payments",
+    "lineNumber": 17,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns DataTable"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 33,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Filter/index.js",
+    "memberof": null,
+    "longname": "app/components/Filter/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Filter';\n\n/**\n * Creates a select component for filter the pound rating\n */\nexport default class Filter extends Component {\n  static propTypes = {\n    toolbar: React.PropTypes.object.isRequired,\n    rating: React.PropTypes.string.isRequired\n  };\n\n  /**\n   * Handles the change of the select\n   * @param  {Object} evt - the event object\n   * @return {undefined}\n   */\n  handleChange(evt) {\n    this.props.toolbar.setState({\n      rating: evt.target.value\n    });\n  }\n\n  /**\n   * Funciton for creating options for the select\n   * @param  {Number} options - number of options to generate\n   * @return {ReactComponent} optionNodes - returns the options\n   */\n  createOptionNodes(options = 5) {\n    let optionsToGenerate = options + 1;\n    let optionNodes = [];\n\n    optionNodes.push(\n      <option key=\"0\" value=\"\">Select pound rating</option>\n    );\n\n    for (let i = 1; i < optionsToGenerate; i++) {\n      optionNodes.push(\n        <option key={i} value={i}>{i}</option>\n      );\n    }    \n    return optionNodes;\n  }\n\n  /**\n   * Render the select filter\n   * @return {ReactComponent} returns a filter component\n   */\n  render() {\n    return (\n      <div className={styles.container}>\n        <select onChange={::this.handleChange} className={styles.filter} value={this.props.rating}>\n          {this.createOptionNodes()}\n        </select>\n      </div>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 34,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Filter",
+    "memberof": "app/components/Filter/index.js",
+    "longname": "app/components/Filter/index.js~Filter",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Filter/index.js",
+    "importStyle": "Filter",
+    "description": "Creates a select component for filter the pound rating",
+    "lineNumber": 7,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 35,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "handleChange",
+    "memberof": "app/components/Filter/index.js~Filter",
+    "longname": "app/components/Filter/index.js~Filter#handleChange",
+    "access": null,
+    "description": "Handles the change of the select",
+    "lineNumber": 18,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "evt",
+        "description": "the event object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 36,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "createOptionNodes",
+    "memberof": "app/components/Filter/index.js~Filter",
+    "longname": "app/components/Filter/index.js~Filter#createOptionNodes",
+    "access": null,
+    "description": "Funciton for creating options for the select",
+    "lineNumber": 29,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "options",
+        "description": "number of options to generate"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "optionNodes - returns the options"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 37,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Filter/index.js~Filter",
+    "longname": "app/components/Filter/index.js~Filter#render",
+    "access": null,
+    "description": "Render the select filter",
+    "lineNumber": 49,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns a filter component"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 38,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Header/index.js",
+    "memberof": null,
+    "longname": "app/components/Header/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Header';\n\n/**\n * Header component\n */\nexport default class Header extends Component {\n  /**\n   * Renders a header with title and leading text\n   * @return {ReactComponent} returns a header component\n   */\n  render() {\n    return(\n      <div>\n        <h1 className={styles.title}>Where your money goes</h1>\n        <p className={styles.lead}>\n          Payments made by Chichester District Council to individual suppliers\n          with a value over £500 made within October.\n        </p>\n        <hr className={styles.separator}/>\n      </div>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 39,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Header",
+    "memberof": "app/components/Header/index.js",
+    "longname": "app/components/Header/index.js~Header",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Header/index.js",
+    "importStyle": "Header",
+    "description": "Header component",
+    "lineNumber": 7,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 40,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Header/index.js~Header",
+    "longname": "app/components/Header/index.js~Header#render",
+    "access": null,
+    "description": "Renders a header with title and leading text",
+    "lineNumber": 12,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns a header component"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 41,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Pagination/index.js",
+    "memberof": null,
+    "longname": "app/components/Pagination/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Pagination';\n// Import Button for generating the pagination items\nimport {Link} from 'react-router';\n\n/**\n * Pagination component  \n * It's used to generate pagination items.   \n * We are using {@link Button} component as pagination elements.\n */\nexport default class Pagination extends Component {\n  static propTypes = {\n    pages: React.PropTypes.object.isRequired\n  };\n\n  /**\n   * Creates pagination arrow button\n   * @param  {String} direction - tells which arrow to generate (prev/next)\n   * @return {ReactComponent} - returns prev/next pagination button\n   */\n  createPaginationArrow(direction = 'left') {\n    let buttonNode;\n    let buttonIdx;\n    let buttonArrow = (direction === 'left') ? '❮' : '❯';\n    let clickable = this.props.pages[direction];\n\n    if (direction === 'left') {\n      buttonIdx = parseInt(this.props.pages.current, 10) - 1;\n    } else {\n      buttonIdx = parseInt(this.props.pages.current, 10) + 1;\n    }\n\n    if (clickable) {\n      buttonNode = (\n        <Link\n          to={`/?${this.props.pages.links[buttonIdx]}`}\n          className={styles.paginationArrow}>\n          {buttonArrow}\n        </Link>);\n    } else {\n      buttonNode = (\n        <span\n          className={styles.paginationArrowOff}>\n          {buttonArrow}\n        </span>);\n    }\n    return buttonNode;\n  }\n\n  /**\n   * Creates the pagination buttons\n   * @return {ReactComponent} returns pagination buttons\n   */\n  createPaginationItems() {\n    let paginationNodes = $.map(this.props.pages.links, (link, pageOffset)=> {\n      let pageNumber = parseInt(pageOffset, 10) + 1;\n      let linkClass;\n\n      if (parseInt(this.props.pages.current, 10) === parseInt(pageOffset, 10)) {\n        linkClass = styles.paginationActive;\n      } else {\n        linkClass = styles.pagination;\n      }\n\n      return (\n        <Link\n          className={linkClass}\n          to={`/?${link}`}\n          key={pageNumber}>\n          {pageNumber}\n        </Link>\n      );\n    });\n    return paginationNodes;\n  }\n\n  /**\n   * Renders pagination if there are at least 2 pages of results\n   * @return {ReactComponent} returns pagination component\n   */\n  render() {\n    // Check if we have already pagination data\n    if (!Object.keys(this.props.pages).length) {\n      return null;\n    }\n\n    // Don't render pagination, if there is only one page\n    if (this.props.pages.total <= 5) {\n      return null;\n    }\n\n    \n    let prevButton = this.createPaginationArrow('left');\n    let nextButton = this.createPaginationArrow('right');\n    let PaginationNodes = this.createPaginationItems();\n\n    return (\n      <div className={styles.container}>\n        {prevButton}       \n        {PaginationNodes}\n        {nextButton}\n      </div>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 42,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Pagination",
+    "memberof": "app/components/Pagination/index.js",
+    "longname": "app/components/Pagination/index.js~Pagination",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Pagination/index.js",
+    "importStyle": "Pagination",
+    "description": "Pagination component  \nIt's used to generate pagination items.   \nWe are using {@link Button} component as pagination elements.",
+    "lineNumber": 11,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 43,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "createPaginationArrow",
+    "memberof": "app/components/Pagination/index.js~Pagination",
+    "longname": "app/components/Pagination/index.js~Pagination#createPaginationArrow",
+    "access": null,
+    "description": "Creates pagination arrow button",
+    "lineNumber": 21,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "direction",
+        "description": "tells which arrow to generate (prev/next)"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns prev/next pagination button"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 44,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "createPaginationItems",
+    "memberof": "app/components/Pagination/index.js~Pagination",
+    "longname": "app/components/Pagination/index.js~Pagination#createPaginationItems",
+    "access": null,
+    "description": "Creates the pagination buttons",
+    "lineNumber": 54,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns pagination buttons"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 45,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Pagination/index.js~Pagination",
+    "longname": "app/components/Pagination/index.js~Pagination#render",
+    "access": null,
+    "description": "Renders pagination if there are at least 2 pages of results",
+    "lineNumber": 81,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns pagination component"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 46,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Rating/index.js",
+    "memberof": null,
+    "longname": "app/components/Rating/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Rating';\n\n/**\n * Rating - component for creating rating icons\n */\nexport default class Rating extends Component {\n  static propTypes = {\n    value: React.PropTypes.string.isRequired,\n    max: React.PropTypes.string.isRequired\n  };\n\n  /**\n   * Render rating icons + a render text value that could be used in a RWD mode\n   * @return {ReactComponent} returns rating\n   */\n  render() {\n    let {value, max} = this.props;\n\n    value = parseInt(value, 10);\n    max = parseInt(max, 10);\n\n    let rating = [];\n\n    for (let i = 0; i < max; i++) {\n      if (i < value) {\n        rating.push(<span className={styles.on} key={i}>&pound;</span>);\n        continue;\n      }\n      rating.push(<span className={styles.off} key={i}>&pound;</span>);\n    }\n\n    return (\n      <div className={styles.container}>\n        {rating}\n        <span className={styles.rwdRating}>{value}</span>\n      </div>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 47,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Rating",
+    "memberof": "app/components/Rating/index.js",
+    "longname": "app/components/Rating/index.js~Rating",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Rating/index.js",
+    "importStyle": "Rating",
+    "description": "Rating - component for creating rating icons",
+    "lineNumber": 7,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 48,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Rating/index.js~Rating",
+    "longname": "app/components/Rating/index.js~Rating#render",
+    "access": null,
+    "description": "Render rating icons + a render text value that could be used in a RWD mode",
+    "lineNumber": 17,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns rating"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 49,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Root.js",
+    "memberof": null,
+    "longname": "app/components/Root.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport {Router, Route} from 'react-router';\nimport createBrowserHistory from 'history/lib/createBrowserHistory';\nimport App from './App';\n\nlet history = createBrowserHistory();\n\n/**\n * Root wraps the {@link App} component with a router  \n * We Render this component to the HTML to #app-view\n */\nexport default class Root extends Component {\n  /**\n   * @return {ReactComponent} returns app wrapped with a router\n   */\n  render() {\n    return(\n      <Router history={history}>\n        <Route path=\"/\" component={App}/>\n      </Router>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 50,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "history",
+    "memberof": "app/components/Root.js",
+    "longname": "app/components/Root.js~history",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/components/Root.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 51,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Root",
+    "memberof": "app/components/Root.js",
+    "longname": "app/components/Root.js~Root",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Root.js",
+    "importStyle": "Root",
+    "description": "Root wraps the {@link App} component with a router  \nWe Render this component to the HTML to #app-view",
+    "lineNumber": 12,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Root.js~Root",
+    "longname": "app/components/Root.js~Root#render",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns app wrapped with a router"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 53,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Search/index.js",
+    "memberof": null,
+    "longname": "app/components/Search/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Search';\n\nconst ENTER_KEY = 13;\n\n/**\n * Search - component for filtering results by query\n */\nexport default class Search extends Component {\n  static propTypes = {\n    toolbar: React.PropTypes.object.isRequired,\n    searched: React.PropTypes.string.isRequired\n  };\n\n  /**\n   * Handles the input change + sets the parent state\n   * @param  {Object} evt - the event object\n   * @return {undefined}\n   */\n  handleChange(evt) {\n    this.props.toolbar.setState({\n      query: evt.target.value\n    });\n  }\n\n  /**\n   * Handles the keypress on input + sends filter on ENTER\n   * @param  {Object} evt - the event object\n   * @return {undefined}\n   */\n  handleKeyDown(evt) {\n    if (evt.which === ENTER_KEY) {\n      this.props.toolbar.filter();\n    }\n  }\n\n  /**\n   * Renders search input for filtering results by query\n   * @return {ReactComponent} returns search filter\n   */\n  render() {\n    return (\n      <input\n        onChange={::this.handleChange}\n        onKeyDown={::this.handleKeyDown}\n        value={this.props.searched}\n        className={styles.searchInput}\n        type=\"text\"\n        placeholder=\"Search suppliers\"/>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 54,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "ENTER_KEY",
+    "memberof": "app/components/Search/index.js",
+    "longname": "app/components/Search/index.js~ENTER_KEY",
+    "access": null,
+    "export": false,
+    "importPath": "tshApp/app/components/Search/index.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "number"
+      ]
+    }
+  },
+  {
+    "__docId__": 55,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Search",
+    "memberof": "app/components/Search/index.js",
+    "longname": "app/components/Search/index.js~Search",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Search/index.js",
+    "importStyle": "Search",
+    "description": "Search - component for filtering results by query",
+    "lineNumber": 9,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 56,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "handleChange",
+    "memberof": "app/components/Search/index.js~Search",
+    "longname": "app/components/Search/index.js~Search#handleChange",
+    "access": null,
+    "description": "Handles the input change + sets the parent state",
+    "lineNumber": 20,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "evt",
+        "description": "the event object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 57,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "handleKeyDown",
+    "memberof": "app/components/Search/index.js~Search",
+    "longname": "app/components/Search/index.js~Search#handleKeyDown",
+    "access": null,
+    "description": "Handles the keypress on input + sends filter on ENTER",
+    "lineNumber": 31,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "evt",
+        "description": "the event object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 58,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Search/index.js~Search",
+    "longname": "app/components/Search/index.js~Search#render",
+    "access": null,
+    "description": "Renders search input for filtering results by query",
+    "lineNumber": 41,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns search filter"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 59,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/components/Toolbar/index.js",
+    "memberof": null,
+    "longname": "app/components/Toolbar/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React, {Component} from 'react';\nimport styles from './Toolbar.css';\n// Import components for toolbar\nimport Search from '../Search';\nimport Filter from '../Filter';\nimport Button from '../Button';\n\n/**\n * Toolbar component is used to filter the {@link DataTable} results\n */\nexport default class Toolbar extends Component {\n  static propTypes = {\n    filters: React.PropTypes.object.isRequired,\n    history: React.PropTypes.object.isRequired\n  };\n\n  /**\n   * constructor\n   * @param  {Object} props - the parent props\n   * @return {undefined}\n   */\n  constructor(props) {\n    super(props);\n\n    /**\n     * Hold the filtering state\n     * @type {Object}\n     * @property {String} state.rating - contains current rating filter value \n     * @property {String} state.query - contains current query filter value\n     */\n    this.state = {\n      rating: '',\n      query: ''\n    };\n  }\n\n  /**\n   * Set filters to filters from URL (if any) \n   * @return {undefined}\n   */\n  componentWillMount() {\n    if ('query' in this.props.filters) {\n      this.setState({query: this.props.filters.query});\n    }\n\n    if ('rating' in this.props.filters) {\n      this.setState({rating: this.props.filters.rating});\n    }\n  }\n\n  /**\n   * Handler for the reset click\n   * @param  {Object} evt - the event object\n   * @return {undefined}\n   */\n  reset(evt) {\n    evt.preventDefault();\n    this.props.history.pushState(null, '/');\n    this.setState({rating: '', query: ''});\n  }\n\n  /**\n   * Filter the results\n   * @return {undefined}\n   */\n  filter() {\n    this.props.history.pushState(null, '/', this.state);\n  }\n\n  /**\n   * Handle the search click\n   * @param  {Object} evt - the event object\n   * @return {undefined}\n   */\n  handleSearch(evt) {\n    evt.preventDefault();\n    this.filter();\n  }\n\n  /**\n   * Renders a toolbar for filtering results\n   * @return {ReactComponent} returns toolbar\n   */\n  render() {\n    return(\n      <div className={styles.container}>\n        <Search toolbar={this} searched={this.state.query}/>\n        <Filter toolbar={this} rating={this.state.rating}/>\n        <Button onClick={::this.reset}>Reset</Button>\n        <Button onClick={::this.handleSearch} type=\"action\">Search</Button>\n      </div>\n    );\n  }\n}\n"
+  },
+  {
+    "__docId__": 60,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Toolbar",
+    "memberof": "app/components/Toolbar/index.js",
+    "longname": "app/components/Toolbar/index.js~Toolbar",
+    "access": null,
+    "export": true,
+    "importPath": "tshApp/app/components/Toolbar/index.js",
+    "importStyle": "Toolbar",
+    "description": "Toolbar component is used to filter the {@link DataTable} results",
+    "lineNumber": 11,
+    "interface": false,
+    "extends": [
+      "react~Component"
+    ]
+  },
+  {
+    "__docId__": 61,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "app/components/Toolbar/index.js~Toolbar",
+    "longname": "app/components/Toolbar/index.js~Toolbar#constructor",
+    "access": null,
+    "description": "constructor",
+    "lineNumber": 22,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "props",
+        "description": "the parent props"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 62,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "state",
+    "memberof": "app/components/Toolbar/index.js~Toolbar",
+    "longname": "app/components/Toolbar/index.js~Toolbar#state",
+    "access": null,
+    "description": "Hold the filtering state",
+    "lineNumber": 31,
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state.rating",
+        "description": "contains current rating filter value"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "state.query",
+        "description": "contains current query filter value"
+      }
+    ],
+    "type": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 63,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "componentWillMount",
+    "memberof": "app/components/Toolbar/index.js~Toolbar",
+    "longname": "app/components/Toolbar/index.js~Toolbar#componentWillMount",
+    "access": null,
+    "description": "Set filters to filters from URL (if any) ",
+    "lineNumber": 41,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 64,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "reset",
+    "memberof": "app/components/Toolbar/index.js~Toolbar",
+    "longname": "app/components/Toolbar/index.js~Toolbar#reset",
+    "access": null,
+    "description": "Handler for the reset click",
+    "lineNumber": 56,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "evt",
+        "description": "the event object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 65,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "filter",
+    "memberof": "app/components/Toolbar/index.js~Toolbar",
+    "longname": "app/components/Toolbar/index.js~Toolbar#filter",
+    "access": null,
+    "description": "Filter the results",
+    "lineNumber": 66,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 66,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "handleSearch",
+    "memberof": "app/components/Toolbar/index.js~Toolbar",
+    "longname": "app/components/Toolbar/index.js~Toolbar#handleSearch",
+    "access": null,
+    "description": "Handle the search click",
+    "lineNumber": 75,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "evt",
+        "description": "the event object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "undefined"
+      ],
+      "spread": false,
+      "description": ""
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "render",
+    "memberof": "app/components/Toolbar/index.js~Toolbar",
+    "longname": "app/components/Toolbar/index.js~Toolbar#render",
+    "access": null,
+    "description": "Renders a toolbar for filtering results",
+    "lineNumber": 84,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "ReactComponent"
+      ],
+      "spread": false,
+      "description": "returns toolbar"
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 68,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "app/index.js",
+    "memberof": null,
+    "longname": "app/index.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import React from 'react';\nimport ReactDOM from 'react-dom';\nimport Root from './components/Root';\n\nReactDOM.render(<Root/>, window.document.getElementById('app-view'));\n"
+  },
+  {
+    "__docId__": 70,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 72,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 76,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 79,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 80,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 82,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 84,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 85,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 86,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 87,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 88,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 89,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 90,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 91,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 92,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 93,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 94,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 95,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 96,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 97,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 98,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 99,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 100,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 101,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 102,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 103,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 104,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 105,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 107,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 108,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 109,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 112,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 113,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 114,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 115,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 118,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 123,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 124,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 125,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  }
+]

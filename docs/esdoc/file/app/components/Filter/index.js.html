@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">app/components/Filter/index.js | TSH.IO app API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/karolgorecki/tshapp" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Root.js~Root.html">Root</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/App</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/App/index.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Button</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Button/index.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/DataTable</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/DataTable/index.js~DataTable.html">DataTable</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/DataTable/Row</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/DataTable/Row/index.js~Row.html">Row</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Filter</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Filter/index.js~Filter.html">Filter</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Header</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Header/index.js~Header.html">Header</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Pagination</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Pagination/index.js~Pagination.html">Pagination</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Rating</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Rating/index.js~Rating.html">Rating</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Search</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Search/index.js~Search.html">Search</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Toolbar</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Toolbar/index.js~Toolbar.html">Toolbar</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">app/components/Filter/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {Component} from &apos;react&apos;;
+import styles from &apos;./Filter&apos;;
+
+/**
+ * Creates a select component for filter the pound rating
+ */
+export default class Filter extends Component {
+  static propTypes = {
+    toolbar: React.PropTypes.object.isRequired,
+    rating: React.PropTypes.string.isRequired
+  };
+
+  /**
+   * Handles the change of the select
+   * @param  {Object} evt - the event object
+   * @return {undefined}
+   */
+  handleChange(evt) {
+    this.props.toolbar.setState({
+      rating: evt.target.value
+    });
+  }
+
+  /**
+   * Funciton for creating options for the select
+   * @param  {Number} options - number of options to generate
+   * @return {ReactComponent} optionNodes - returns the options
+   */
+  createOptionNodes(options = 5) {
+    let optionsToGenerate = options + 1;
+    let optionNodes = [];
+
+    optionNodes.push(
+      &lt;option key=&quot;0&quot; value=&quot;&quot;&gt;Select pound rating&lt;/option&gt;
+    );
+
+    for (let i = 1; i &lt; optionsToGenerate; i++) {
+      optionNodes.push(
+        &lt;option key={i} value={i}&gt;{i}&lt;/option&gt;
+      );
+    }    
+    return optionNodes;
+  }
+
+  /**
+   * Render the select filter
+   * @return {ReactComponent} returns a filter component
+   */
+  render() {
+    return (
+      &lt;div className={styles.container}&gt;
+        &lt;select onChange={::this.handleChange} className={styles.filter} value={this.props.rating}&gt;
+          {this.createOptionNodes()}
+        &lt;/select&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

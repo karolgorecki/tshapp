@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">app/components/App/index.js | TSH.IO app API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/karolgorecki/tshapp" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Root.js~Root.html">Root</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/App</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/App/index.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Button</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Button/index.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/DataTable</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/DataTable/index.js~DataTable.html">DataTable</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/DataTable/Row</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/DataTable/Row/index.js~Row.html">Row</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Filter</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Filter/index.js~Filter.html">Filter</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Header</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Header/index.js~Header.html">Header</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Pagination</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Pagination/index.js~Pagination.html">Pagination</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Rating</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Rating/index.js~Rating.html">Rating</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Search</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Search/index.js~Search.html">Search</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Toolbar</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Toolbar/index.js~Toolbar.html">Toolbar</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">app/components/App/index.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React, {Component} from &apos;react&apos;;
+import styles from &apos;./App&apos;;
+
+// Get CSS for global, reset and font styles
+import {} from &apos;../../css/global&apos;;
+import {} from &apos;../../css/reset.css&apos;;
+import {} from &apos;../../css/fonts&apos;;
+
+// Get app components
+import DataTable from &apos;../DataTable&apos;;
+import Toolbar from &apos;../Toolbar&apos;;
+import Header from &apos;../Header&apos;;
+import Pagination from &apos;../Pagination&apos;;
+
+const API_URL = &apos;http://test-api.kuria.tshdev.io/index.php&apos;;
+const API_ERROR = &apos;An error occured!&apos;;
+
+/**
+ * App is the main component that contains other parts of the application.
+ */
+export default class App extends Component {
+  static propTypes = {
+    location: React.PropTypes.object.isRequired,
+    history: React.PropTypes.object.isRequired
+  };
+
+  /**
+   * constructor
+   * @param {Object} props - the parent props
+   * @return {undefined}
+   */
+  constructor(props) {
+    super(props);
+
+    /**
+     * The main App state  
+     * it holds the payments &amp; pagination data from the API
+     * @type {Object}
+     * @property {Object[]} state.payments - is a list of returned payments from the API 
+     * @property {Object} state.pagination - contains information about the pagination
+     */
+    this.state = {
+      payments: [],
+      pagination: {}
+    };
+
+    // Watch for route changes
+    this.props.history.listen(::this.changeRoute);
+  }
+
+  /**
+   * Maps the router route to the API calls
+   * @param  {Object} state - holds the route state
+   * @param  {Object} route - holds the route informations
+   * @return {undefined}
+   */
+  changeRoute(state, route) {
+    $.ajax({
+      url: `${API_URL}${route.location.search}`,
+      type: &apos;get&apos;,
+      dataType: &apos;json&apos;,
+      success: ::this.setPayments,
+      error: ::this.handleError
+    });
+  }
+
+  /**
+   * Handles error when getting data from API
+   * @param  {Object} data - returned data
+   * @return {undefined}
+   */
+  handleError(data) {
+    // We don&apos;t have any results
+    if (data.responseText === API_ERROR) {
+      this.setState({
+        payments: [],
+        pagination: {}
+      });
+    }
+  }
+
+  /**
+   * Handles the success response when getting data from API  
+   * It sets the state of the payments &amp; pagination
+   * @param {Object} data - the payments &amp; pagination information
+   * @return {undefined}
+   */
+  setPayments(data) {
+    this.setState({
+      payments: data.payments,
+      pagination: data.pagination 
+    });
+  }
+
+  /**
+   * Render the App component
+   * @return {ReactComponent} returns whole application with all components
+   */
+  render() {
+    return(
+      &lt;div className={styles.container}&gt;
+        &lt;Header/&gt;
+        &lt;Toolbar history={this.props.history} filters={this.props.location.query}/&gt;
+        &lt;DataTable payments={this.state.payments}/&gt;
+        &lt;Pagination pages={this.state.pagination}/&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

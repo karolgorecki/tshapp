@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../">
+  <title data-ice="title">app/__tests__/Pagination-test.js | TSH.IO app API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/karolgorecki/tshapp" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Root.js~Root.html">Root</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/App</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/App/index.js~App.html">App</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Button</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Button/index.js~Button.html">Button</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/DataTable</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/DataTable/index.js~DataTable.html">DataTable</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/DataTable/Row</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/DataTable/Row/index.js~Row.html">Row</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Filter</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Filter/index.js~Filter.html">Filter</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Header</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Header/index.js~Header.html">Header</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Pagination</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Pagination/index.js~Pagination.html">Pagination</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Rating</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Rating/index.js~Rating.html">Rating</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Search</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Search/index.js~Search.html">Search</a></span></span></li>
+<li data-ice="doc"><div data-ice="dirPath" class="nav-dir-path">components/Toolbar</div><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/app/components/Toolbar/index.js~Toolbar.html">Toolbar</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">app/__tests__/Pagination-test.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React from &apos;react&apos;;
+import ReactDOM from &apos;react-dom&apos;;
+import expect from &apos;expect&apos;;
+// Use React TestUtils as T
+import {default as T} from &apos;react-addons-test-utils&apos;;
+import Pagination from &apos;../components/Pagination&apos;;
+
+const pagesMock = {
+  &apos;total&apos;: 50,
+  &apos;current&apos;: 0,
+  &apos;links&apos;: {
+    &apos;0&apos;: &apos;page=0&apos;,
+    &apos;1&apos;: &apos;page=1&apos;,
+    &apos;2&apos;: &apos;page=2&apos;,
+    &apos;3&apos;: &apos;page=3&apos;,
+    &apos;4&apos;: &apos;page=4&apos;,
+    &apos;5&apos;: &apos;page=5&apos;,
+    &apos;6&apos;: &apos;page=6&apos;,
+    &apos;7&apos;: &apos;page=7&apos;,
+    &apos;8&apos;: &apos;page=8&apos;,
+    &apos;49&apos;: &apos;page=49&apos;
+  },
+  &apos;from&apos;: 0,
+  &apos;to&apos;: 9,
+  &apos;left&apos;: false,
+  &apos;right&apos;: true,
+  &apos;leftEnd&apos;: false,
+  &apos;rightEnd&apos;: true
+};
+
+describe(&apos;Pagination&apos;, ()=&gt; {
+  it(&apos;should render without errors&apos;, ()=&gt; {
+    let pgn = T.renderIntoDocument(
+      &lt;Pagination pages={{}}/&gt;
+    );
+
+    expect(pgn).toExist();
+  });
+
+  it(&apos;should create a pagination with one disabled item and rest enabled items&apos;, ()=&gt; {
+    let pgn = T.renderIntoDocument(
+      &lt;Pagination pages={pagesMock}/&gt;
+    );
+
+    let pgnItems = ReactDOM.findDOMNode(pgn);
+    let enabledPgnItems = pgnItems.getElementsByTagName(&apos;a&apos;);
+    
+    expect(enabledPgnItems.length).toEqual(11);
+    // the pagination is 0 based so the last page should be 49 + 1
+    expect(enabledPgnItems[9].textContent).toEqual(&apos;50&apos;);
+    expect(enabledPgnItems[10].textContent).toEqual(&apos;&#x276F;&apos;);
+    expect(pgnItems.getElementsByTagName(&apos;span&apos;)[0].textContent).toEqual(&apos;&#x276E;&apos;);
+  });
+});
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
