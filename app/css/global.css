@@ -1,0 +1,4 @@
+/* GLOBAL STYLES */
+:global body {
+    background: url('../images/app-bg.jpg');
+}

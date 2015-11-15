@@ -1,0 +1,40 @@
+/* BUTTON */
+
+ /* style */
+/*============================================================================
+/* Base button - is the prototype for building other buttons */
+._baseButton {
+  display: inline-block;
+  vertical-align: middle;
+  font: bold 13px/31px 'Source Sans Pro';
+  height: 31px;
+  padding: 0 20px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+._baseButton:hover {
+  box-shadow: inset 0 0 0 50px rgba(0,0,0,.1);
+}
+
+/* Create spacing between buttons */
+._baseButton + ._baseButton {
+  margin-left: 10px;
+}
+
+/* Button instaces */
+/* Regular button, when no type is specified we use this one */
+.default {
+  composes: _baseButton;
+  background: #ddd;
+  color: #555;
+  background-image: linear-gradient(#f0f0f0,#ccc);
+}
+
+/* Action button */
+.action {
+  composes: _baseButton;
+  color: #fff;
+  background: #448bf2;
+  background-image: linear-gradient(#6ba1f3,#2177f0);
+}

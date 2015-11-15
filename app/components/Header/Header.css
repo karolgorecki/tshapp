@@ -1,0 +1,40 @@
+/* HEADER */
+
+/* vars */
+/*============================================================================*/
+@custom-media --rwd-s (width <= 400px);
+
+/* style */
+/*============================================================================*/
+.title {
+  font: 300 60px/1 'Source Sans Pro';
+  text-align: center;
+  color: #2288B7;
+}
+
+.lead {
+  display: block;
+  margin: 12px auto 21px auto;
+  font: normal 17.15px 'Source Sans Pro';
+  text-align: center;
+  color: #333;
+}
+
+.separator {
+  display: block;
+  height: 1px;
+  margin: 20px 0;
+  border: 0;
+  background: #ccc;
+}
+
+/* RWD for header elements */
+@media (--rwd-s) {
+  .title {
+    font-size: 14vw;
+  }
+
+  .lead {
+    font-size: 15px;
+  }
+}

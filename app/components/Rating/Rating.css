@@ -1,0 +1,55 @@
+/* RATING */
+
+/* vars */
+/*============================================================================*/
+@custom-media --rwd-m (width <= 700px);
+
+/* style */
+/*============================================================================*/
+/* container holds the rating items. Don't allow to break the line */
+.container {
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.ratingItem {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  font: bold 13px/23px 'Source Sans Pro';
+  text-align: center;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 2px 1px rgba(0,0,0,.1);
+}
+
+.ratingItem + .ratingItem {
+  margin-left: 5px;
+}
+
+/* Styles for turned on rating item */
+.on {
+  composes: ratingItem;
+  color: #fff;
+  background: #2be;
+  background-image: linear-gradient(#62bfea,#4d97dd)
+}
+
+/* Styles for turned off rating item */
+.off {
+  composes: ratingItem;
+  color: #666;
+  background: #eaeaea;
+  background-image: linear-gradient(#fff,#ddd)
+}
+
+/* Hide rwd rating */
+.rwdRating {
+  display: none;
+}
+
+/* RWD - Show the number rating when rwd */
+@media (--rwd-m) {
+  .rwdRating { display: block; }
+  .ratingItem { display: none; }
+}

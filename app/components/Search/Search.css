@@ -1,0 +1,32 @@
+/* SEARCH */
+
+/* vars */
+/*============================================================================*/
+@custom-media --rwd-m (width <= 700px);
+
+/* style */
+/*============================================================================*/
+.searchInput {
+  vertical-align: middle;
+  display: inline-block;
+  padding: 6px;
+  border-radius: 4px;
+  font: normal 13px 'Source Sans Pro';
+  border: 1px solid #ddd;
+  max-width: 370px;
+  width: 40%;
+  margin-right: 10px;
+}
+
+.main::placeholder {
+  color: #888;
+}
+
+/* RWD */
+@media (--rwd-m) {
+  .searchInput {
+    max-width: none;
+    width: 95%;
+    margin: 0 auto 10px auto;
+  }
+}

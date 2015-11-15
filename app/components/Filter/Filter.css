@@ -1,0 +1,47 @@
+/* FILTER */
+
+/* vars */
+/*============================================================================*/
+@custom-media --rwd-s (width <= 400px);
+
+/* style */
+/*============================================================================*/
+/* styles for filter wrapper */
+.container {
+  display: inline-block;
+  height: 31px;
+  padding: 0 8px;
+  margin-right: 10px;
+  border-radius: 4px;
+  vertical-align: middle;
+  line-height: 29px;
+  background: #eaeced;
+}
+
+/* style the select that filters the pound rating */
+.filter {
+  height: 21px;
+  vertical-align: middle;
+  padding-right: 10px;
+  font-size: 11px;
+  color: #000;
+}
+
+.filter option {
+  padding: 10px;
+}
+
+/* RWD for the select filter */
+@media (--rwd-s) {
+  .container {
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    margin: 0 auto 10px auto;
+  }
+
+  .filter {
+    padding: 0 15px;
+    height: 30px;
+  }
+}

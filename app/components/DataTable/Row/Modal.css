@@ -1,0 +1,96 @@
+/* MODAL */
+
+/* vars */
+/*============================================================================*/
+@custom-media --rwd-s (width <= 600px);
+
+/* style */
+/*============================================================================*/
+._baseFont {
+  color: #2288b7;
+  font-family: 'Source Sans Pro';
+}
+
+.title {
+  composes: _baseFont;
+  margin-bottom: 30px;
+  font-size: 50px;
+  font-weight: 100;
+}
+
+.separator {
+  height: 5px;
+  border: 0;
+  margin: 20px 0;
+  background: #3399c8;
+}
+
+.property {
+  composes: _baseFont;
+  padding: 10px 20px 10px 20px;
+  font-size: 40px;
+  border-bottom: 1px solid #4ae;
+  max-width: 980px;
+}
+
+.label {
+  width: 50%;
+  font-size: 25px;
+  text-align: left;
+  display: inline-block;
+  font-weight: bold;
+}
+
+.value {
+  text-align: right;
+  width: 50%;
+  display: inline-block;
+}
+
+.property + .property {
+  margin-top: 20px;
+}
+
+.close {
+  position: absolute;
+  display: block;
+  top: -2px;
+  right: 45px;
+  width: 40px;
+  height: 40px;
+  line-height: 36px;
+  font-size: 40px;
+  color: #fff;
+  z-index: 999;
+  text-align: center;
+  background: #56a9e2;
+  box-shadow: 0 3px 2px rgba(0,0,0,.2);
+  border: 2px solid #0ac;
+  cursor: pointer;
+}
+
+.close:hover {
+  box-shadow: inset 0 0 50px rgba(0,0,0,.2);
+}
+
+/* RWD */
+@media (--rwd-s) {
+  /* move close button to the modal corner*/
+  .close {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+  }
+
+  /* make the properites & title fit */
+  .label, .value {
+    display: block;
+    width: auto;
+    text-align: center;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 7vw;
+  }
+}

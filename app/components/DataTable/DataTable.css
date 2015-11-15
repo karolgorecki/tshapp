@@ -1,0 +1,110 @@
+/* DATA TABLE */
+
+/* vars */
+/*============================================================================*/
+:root {
+  --border-radius: 4px;
+}
+
+@custom-media --rwd-s (width <= 600px);
+
+/* style */
+/*============================================================================*/
+/* Bordered table */
+.bordered {
+  margin: 20px auto;
+  width: 100%;
+  font: normal 14px 'Source Sans Pro';
+  color: #666;
+  border-spacing: 0;
+  border-collapse: separate;
+  border: solid #ccc 1px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 1px 1px rgba(0,0,0,.1);
+}
+
+/* Make stripped rows */
+.bordered tr:nth-child(even) {
+  background: #f7f7f7;
+  box-shadow: inset 0px 2px 0px 0px #fff;
+}
+
+/* Hover for the rows */
+.bordered tbody tr:hover {
+  box-shadow: none;
+  background: #c7e1f3;
+  cursor: pointer;
+}
+
+/* Make the "supplier" column aligned to left */
+.bordered tr th:first-child,
+.bordered tr td:first-child {
+  text-align: left;
+}
+
+/* Styles for rows */
+.bordered td, .bordered th {
+  border-top: 1px solid #ccc;
+  text-align: center;
+}
+
+.bordered td {
+  border-left: 1px solid #ccc;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.bordered td:first-child {
+  padding: 16px 25px;
+  width: 99%;
+}
+
+.bordered td:first-child, .bordered th:first-child {
+  border-left: none;
+}
+
+/* Styles for heading row */
+.bordered th {
+  border-top: none;
+  font-weight: bold;
+  vertical-align: middle;
+  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset, 0 2px rgba(0,0,0,.1);
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  background-color: #eaeaea;
+  background-image: linear-gradient(#e8e9ea, #ecedee);
+}
+
+.bordered th:first-child {
+  padding: 20px 25px;
+  border-radius: var(--border-radius) 0 0 0;
+}
+
+/* When there is no results */
+.bordered th:last-child {
+  border-radius: 0 var(--border-radius) 0 0;
+}
+
+.bordered th:only-child {
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.bordered tr:last-child td:first-child {
+  border-radius: 0 0 0 var(--border-radius);
+}
+
+.bordered tr:last-child td:last-child {
+  border-radius: 0 0 var(--border-radius) 0;
+}
+
+/* RWD for table. Hide some columns */
+@media (--rwd-s) {
+  .bordered th:nth-child(3),
+  .bordered td:nth-child(3) {
+    display: none;
+  }
+}
+
+/* Styles for no results */
+.noResults {
+  font-size: 15px;
+}

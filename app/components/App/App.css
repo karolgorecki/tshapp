@@ -1,0 +1,43 @@
+/* APP */
+
+/* vars */
+/*============================================================================*/
+:root{
+  --max-width: 940px;
+  --border-radius: 4px;
+  --vertical-spacing: 77px;
+  --vertical-spacing-rwd-l: 20px;
+}
+
+@custom-media --rwd-l (width <= 900px);
+@custom-media --rwd-s (width <= 500px);
+
+/* styles */
+/*============================================================================*/
+/* container is a wrapper that holds the app components */
+.container {
+  width: 80%;
+  max-width: var(--max-width);
+  padding: 20px;
+  margin: var(--vertical-spacing) auto;
+  border-radius: var(--border-radius);
+  background: #fff;
+  box-shadow: 0 0 0 7px rgba(0,0,0,.05),
+  0 1px 3px rgba(0,0,0,.2);
+}
+
+/* RWD styles for container */
+@media (--rwd-l) {
+  .container {
+    margin: var(--vertical-spacing-rwd-l) auto;
+    width: 90%;
+  }
+}
+
+@media (--rwd-s) {
+  .container {
+    margin: 0 auto;
+    padding: 20px 4%;
+    width: 92%;
+  }
+}
