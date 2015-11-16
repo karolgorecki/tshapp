@@ -37,19 +37,19 @@ The basic structure looks like this:
 Each `component` has own folder with a script file & own styles.
 
 ### Install
-1. **Install all dependencies using**
+**Install all dependencies using**
 ```
 npm install
 ```
 
 ### Run dev mode
-2. **To run in DEV mode** (webpack starts on http://localhost:8080)
+**To run in DEV mode** (webpack starts on http://localhost:8080)
 ```
 npm start
 ```
 
 ### Build
-3. **To build the project use**
+**To build the project use**
 ```
 npm run prod
 ```
@@ -57,20 +57,20 @@ It will create a `build` folder. You can copy the `index.html` from the root fol
 + the `build` folder to run this app on some server.
 
 ### Build & run prod
-4. **To check the produciton version use** (runs on http://localhost:3000)
+**To check the produciton version use** (runs on http://localhost:3000)
 ```
 npm run startprod
 ```
 
 ### Documentation
-5. **To generate documentation use**
+**To generate documentation use**
 ```
 npm run doc
 ```
 You can check the documentation: [TSH docs](https://cdn.rawgit.com/karolgorecki/tshapp/master/docs/esdoc/index.html)
 
 ### Running tests
-6. **To run tests**
+**To run tests**
 ```
 npm test
 ```
