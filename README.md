@@ -53,8 +53,8 @@ npm start
 ```
 npm run prod
 ```
-It will create a `build` folder. You can copy the `index.html` from the root folder
-+ the `build` folder to run this app on some server.
+It will create a `build` folder.  
+You can copy the `index.html` from the root folder & the `build` folder to run this app on some server.
 
 ### Build & run prod
 **To check the produciton version use** (runs on http://localhost:3000)
