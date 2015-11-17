@@ -49,22 +49,57 @@
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="tsh-io-demo-app">TSH.io demo app</h1>
 <p><a href="https://circleci.com/gh/karolgorecki/tshapp/tree/master"><img src="https://circleci.com/gh/karolgorecki/tshapp/tree/master.svg?style=svg" alt="Circle CI"></a>
-It&apos;s a demo application for tsh.io company</p>
+<a href="https://cdn.rawgit.com/karolgorecki/tshapp/master/docs/esdoc/index.html"><img src="https://cdn.rawgit.com/karolgorecki/tshapp/master/docs/esdoc/badge.svg" alt="Docs"></a><br>It&apos;s a demo application for tsh.io company</p>
 <h2 id="goals">Goals</h2>
-<p>The goal of this project was to create an application for searching payments
-that are retrieved from an external API.
-<img src="https://raw.githubusercontent.com/karolgorecki/tshapp/master/docs/design.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/karolgorecki/tshapp/master/docs/design.png" alt="Demo app">
+The goal of this project was to create an application for searching payments
+that are retrieved from an external API.</p>
 <h2 id="app">App</h2>
 <h3 id="about">About</h3>
-<p>The App was created using the latest ReactJS 0.14.2 and the ES2015 features.</p>
-<h3 id="running">Running</h3>
-<ol>
-<li>Install all dependencies using<pre><code><code class="source-code prettyprint">npm install</code>
-</code></pre><h3 id="testing">Testing</h3>
-<h3 id="docs">Docs</h3>
-</li>
-</ol>
-</div>
+<p>The App was created using the latest ReactJS and the ES2015 features.  </p>
+<p>Used tools:</p>
+<ul>
+<li><a href="https://webpack.github.io/">webpack</a></li>
+<li><a href="https://babeljs.io/">babel</a></li>
+<li><a href="http://eslint.org/">eslint</a></li>
+<li><a href="https://esdoc.org/">esdocs</a></li>
+<li><a href="https://github.com/postcss/postcss">postCSS</a></li>
+</ul>
+<p>The basic structure looks like this:</p>
+<pre><code><code class="source-code prettyprint">.
+&#x251C;&#x2500;&#x2500;&#x2500; app
+|   &#x251C;&#x2500;&#x2500;&#x2500; __tests__                  # holds the test files
+|   &#x251C;&#x2500;&#x2500;&#x2500; components                 # component for the app
+|   &#x251C;&#x2500;&#x2500;&#x2500; css                        # holds global styles
+|   &#x251C;&#x2500;&#x2500;&#x2500; fonts                      # fonts for the project
+|   &#x251C;&#x2500;&#x2500;&#x2500; images                     # global images
+|   &#x251C;&#x2500;&#x2500;&#x2500; index.html                 # app html for dev
+|   &#x2514;&#x2500;&#x2500;&#x2500; index.js                   # webpack entry point
+&#x251C;&#x2500;&#x2500;&#x2500; build                          # contains files for production
+&#x251C;&#x2500;&#x2500;&#x2500; docs                           # contains esdocs
+&#x2514;&#x2500;&#x2500;&#x2500; ...</code>
+</code></pre><p>Each <code>component</code> has own folder with a script file &amp; own styles.</p>
+<h3 id="install">Install</h3>
+<p><strong>Install all dependencies using</strong></p>
+<pre><code><code class="source-code prettyprint">npm install</code>
+</code></pre><h3 id="run-dev-mode">Run dev mode</h3>
+<p><strong>To run in DEV mode</strong> (webpack starts on <a href="http://localhost:8080">http://localhost:8080</a>)</p>
+<pre><code><code class="source-code prettyprint">npm start</code>
+</code></pre><h3 id="build">Build</h3>
+<p><strong>To build the project use</strong></p>
+<pre><code><code class="source-code prettyprint">npm run prod</code>
+</code></pre><p>It will create a <code>build</code> folder.<br>You can copy the <code>index.html</code> from the root folder &amp; the <code>build</code> folder to run this app on some server.</p>
+<h3 id="build-run-prod">Build &amp; run prod</h3>
+<p><strong>To check the produciton version use</strong> (runs on <a href="http://localhost:3000">http://localhost:3000</a>)</p>
+<pre><code><code class="source-code prettyprint">npm run startprod</code>
+</code></pre><h3 id="documentation">Documentation</h3>
+<p><strong>To generate documentation use</strong></p>
+<pre><code><code class="source-code prettyprint">npm run doc</code>
+</code></pre><p>You can check the documentation: <a href="https://cdn.rawgit.com/karolgorecki/tshapp/master/docs/esdoc/index.html">TSH docs</a></p>
+<h3 id="running-tests">Running tests</h3>
+<p><strong>To run tests</strong></p>
+<pre><code><code class="source-code prettyprint">npm test</code>
+</code></pre></div>
 </div>
 
 <footer class="footer">
