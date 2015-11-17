@@ -67,7 +67,7 @@ npm run startprod
 ```
 npm run doc
 ```
-You can check the documentation: [TSH docs](https://cdn.rawgit.com/karolgorecki/tshapp/master/docs/esdoc/index.html)
+You can check the documentation: [TSH docs](https://cdn.rawgit.com/karolgorecki/tshapp/0.1.0/docs/esdoc/index.html)
 
 ### Running tests
 **To run tests**
